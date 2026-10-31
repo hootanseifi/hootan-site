@@ -300,5 +300,5 @@ async def test_the_admin_account_opens_the_admin_endpoints(api, session, monkeyp
     overview = (await api.get("/api/admin/overview")).json()
     assert overview["counts"]["players"]["today"] == 1
     assert "today" in overview["costs"]
-    for path in ("players", "leads", "jobfits", "chats"):
+    for path in ("players", "resets", "leads", "jobfits", "chats"):
         assert (await api.get(f"/api/admin/{path}")).status_code == 200

@@ -22,12 +22,6 @@ class Settings(BaseSettings):
     # The player account with this nickname is the admin; nobody else can sign up with it.
     admin_nickname: str = "Hootan"
 
-    smtp_host: str = "127.0.0.1"
-    smtp_port: int = 1025
-    smtp_user: str = ""
-    smtp_password: str = ""
-    smtp_from: str = "no-reply@hootanseifi.pro"
-
     llm_base_url: str = "https://api.avalai.ir/v1"
     llm_api_key: str = ""
     model_twin: str = "gemini-2.5-flash-lite"

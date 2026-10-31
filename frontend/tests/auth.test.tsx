@@ -25,11 +25,8 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 
-test("a forgotten password: email, then the code and a new password log in", async () => {
-  const fetch = backend({
-    "/api/game/password/forgot": [204, null],
-    "/api/game/password/reset": [200, { nickname: "satoshi" }],
-  });
+test("a forgotten password: nickname and email go to Hootan and the form says so", async () => {
+  const fetch = backend({ "/api/game/password/forgot": [204, null] });
   const done = vi.fn();
   render(
     <AuthProvider>
@@ -38,21 +35,18 @@ test("a forgotten password: email, then the code and a new password log in", asy
   );
 
   fireEvent.click(screen.getByRole("button", { name: t.forgot }));
+  type(t.nickname, "satoshi");
   type(t.email, "a@b.com");
   fireEvent.click(screen.getByRole("button", { name: t.send }));
+
   expect(await screen.findByText(t.sent)).toBeTruthy();
-  expect(sent(fetch, "/api/game/password/forgot").email).toBe("a@b.com");
-
-  type(t.code, "123456");
-  type(t.newPassword, "new");
-  fireEvent.click(screen.getByRole("button", { name: t.reset }));
-
-  await vi.waitFor(() => expect(done).toHaveBeenCalled());
-  expect(sent(fetch, "/api/game/password/reset")).toMatchObject({ email: "a@b.com", code: "123456", password: "new" });
+  expect(sent(fetch, "/api/game/password/forgot")).toEqual({ nickname: "satoshi", email: "a@b.com" });
+  expect(screen.queryByPlaceholderText(t.email)).toBeNull();
+  expect(done).not.toHaveBeenCalled();
 });
 
-test("a wrong code says so and keeps the form", async () => {
-  backend({ "/api/game/password/forgot": [204, null], "/api/game/password/reset": [400, { detail: "x" }] });
+test("too many forgot requests say so and keep the form", async () => {
+  backend({ "/api/game/password/forgot": [429, { detail: "x" }] });
   render(
     <AuthProvider>
       <AuthForm t={t} />
@@ -60,14 +54,12 @@ test("a wrong code says so and keeps the form", async () => {
   );
 
   fireEvent.click(screen.getByRole("button", { name: t.forgot }));
+  type(t.nickname, "satoshi");
   type(t.email, "a@b.com");
   fireEvent.click(screen.getByRole("button", { name: t.send }));
-  await screen.findByPlaceholderText(t.code);
-  type(t.code, "000000");
-  type(t.newPassword, "new");
-  fireEvent.click(screen.getByRole("button", { name: t.reset }));
 
-  expect((await screen.findByRole("alert")).textContent).toBe(t.errCode);
+  expect((await screen.findByRole("alert")).textContent).toBe(t.errLimit);
+  expect(screen.getByPlaceholderText(t.email)).toBeTruthy();
 });
 
 test("signing up with an email that has an account names the email", async () => {

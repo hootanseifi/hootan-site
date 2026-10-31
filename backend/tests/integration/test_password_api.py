@@ -1,35 +1,27 @@
-import re
-from datetime import UTC, datetime, timedelta
 from decimal import Decimal
 
 import httpx2
 import pytest
 from sqlalchemy import select
 
-from app.db.models import Player
+from app.config import get_settings
+from app.db.models import PasswordReset
 from app.db.session import get_session
 from app.game import password
-from app.game.accounts import SIGNUP_LIMITER
+from app.game.accounts import LOGIN_LIMITER, SIGNUP_LIMITER
 from app.game.api import shown_price
 from app.main import app
 
 
 @pytest.fixture
-async def api(session, monkeypatch):
-    """HTTPS client with the test session; sent mails are collected in `api.sent`."""
-    for limiter in (SIGNUP_LIMITER, password.FORGOT_LIMITER, password.RESET_LIMITER):
+async def api(session):
+    """HTTPS client with the test session."""
+    for limiter in (SIGNUP_LIMITER, LOGIN_LIMITER, password.FORGOT_LIMITER):
         limiter.hits.clear()
-    sent = []
-    monkeypatch.setattr(
-        password,
-        "send_mail",
-        lambda settings, to, subject, body: sent.append((to, body)),
-    )
     app.dependency_overrides[get_session] = lambda: session
     app.dependency_overrides[shown_price] = lambda: Decimal(80_000)
     transport = httpx2.ASGITransport(app=app)
     async with httpx2.AsyncClient(transport=transport, base_url="https://test") as c:
-        c.sent = sent
         yield c
     app.dependency_overrides.clear()
 
@@ -39,8 +31,14 @@ async def join(api, nickname="satoshi", email="Satoshi@Example.com"):
     return await api.post("/api/game/players", json=body)
 
 
-def code_of(body: str) -> str:
-    return re.search(r"\b\d{6}\b", body).group()
+async def forgot(api, nickname="Satoshi", email="satoshi@example.COM"):
+    body = {"nickname": nickname, "email": email}
+    return await api.post("/api/game/password/forgot", json=body)
+
+
+async def login(api, pw):
+    body = {"nickname": "satoshi", "password": pw}
+    return (await api.post("/api/game/login", json=body)).status_code
 
 
 async def test_a_second_account_with_the_same_email_is_refused(api):
@@ -52,86 +50,55 @@ async def test_a_second_account_with_the_same_email_is_refused(api):
     assert response.json()["detail"] == "Email taken"
 
 
-async def test_forgot_mails_a_code_with_the_nickname_and_stores_only_its_hash(
-    api, session
-):
+async def test_forgot_sets_a_new_working_password_and_logs_both(api, session):
     await join(api)
 
-    response = await api.post(
-        "/api/game/password/forgot", json={"email": "satoshi@example.com", "lang": "fa"}
-    )
+    assert (await forgot(api)).status_code == 204
 
-    assert response.status_code == 204
-    [(to, body)] = api.sent
-    assert to == "Satoshi@example.com"
-    assert "satoshi" in body and "کد" in body
-    player = await session.scalar(select(Player))
-    assert player.reset_code_hash and code_of(body) not in player.reset_code_hash
+    reset = await session.scalar(select(PasswordReset))
+    assert reset.old_password == "old"
+    assert len(reset.new_password) == 10
+    assert await login(api, "old") == 401
+    assert await login(api, reset.new_password) == 200
 
 
-async def test_forgot_answers_the_same_for_an_unknown_email(api):
-    response = await api.post(
-        "/api/game/password/forgot", json={"email": "nobody@example.com"}
-    )
-
-    assert response.status_code == 204
-    assert api.sent == []
-
-
-async def test_reset_sets_the_new_password_logs_in_and_burns_the_code(api):
+@pytest.mark.parametrize(
+    ("nickname", "email"),
+    [("satoshi", "other@example.com"), ("other", "satoshi@example.com")],
+)
+async def test_forgot_changes_nothing_unless_both_match(api, session, nickname, email):
     await join(api)
-    api.cookies.clear()
-    await api.post("/api/game/password/forgot", json={"email": "satoshi@example.com"})
-    code = code_of(api.sent[0][1])
-    body = {"email": "satoshi@example.com", "code": code, "password": "new"}
+    await join(api, nickname="other", email="other@example.com")
 
-    response = await api.post("/api/game/password/reset", json=body)
+    assert (await forgot(api, nickname, email)).status_code == 204
 
-    assert response.status_code == 200
-    assert response.json()["nickname"] == "satoshi"
-    assert "player" in api.cookies
-    login = {"nickname": "satoshi", "password": "new"}
-    assert (await api.post("/api/game/login", json=login)).status_code == 200
-    again = await api.post("/api/game/password/reset", json=body | {"password": "x"})
-    assert again.status_code == 400
+    assert await session.scalar(select(PasswordReset)) is None
+    assert await login(api, "old") == 200
 
 
-async def test_reset_refuses_a_wrong_code(api):
+async def test_forgot_skips_the_admin_account(api, session, monkeypatch):
     await join(api)
-    await api.post("/api/game/password/forgot", json={"email": "satoshi@example.com"})
-    wrong = "000000" if code_of(api.sent[0][1]) != "000000" else "111111"
+    monkeypatch.setattr(get_settings(), "admin_nickname", "satoshi")
 
-    response = await api.post(
-        "/api/game/password/reset",
-        json={"email": "satoshi@example.com", "code": wrong, "password": "new"},
-    )
+    assert (await forgot(api)).status_code == 204
 
-    assert response.status_code == 400
+    assert await session.scalar(select(PasswordReset)) is None
+    assert await login(api, "old") == 200
 
 
-async def test_reset_refuses_an_expired_code(api, session):
+async def test_the_admin_sees_the_resets(api, monkeypatch):
     await join(api)
-    await api.post("/api/game/password/forgot", json={"email": "satoshi@example.com"})
-    player = await session.scalar(select(Player))
-    player.reset_expires_at = datetime.now(UTC) - timedelta(seconds=1)
-    await session.commit()
+    await forgot(api)
+    monkeypatch.setattr(get_settings(), "admin_token", "secret")
 
-    response = await api.post(
-        "/api/game/password/reset",
-        json={
-            "email": "satoshi@example.com",
-            "code": code_of(api.sent[0][1]),
-            "password": "new",
-        },
-    )
+    response = await api.get("/api/admin/resets", headers={"X-Admin-Token": "secret"})
 
-    assert response.status_code == 400
+    [row] = response.json()
+    assert row["nickname"] == "satoshi" and row["old_password"] == "old"
 
 
 async def test_forgot_is_limited_per_ip(api):
     for _ in range(5):
-        await api.post("/api/game/password/forgot", json={"email": "a@b.com"})
+        await forgot(api)
 
-    response = await api.post("/api/game/password/forgot", json={"email": "a@b.com"})
-
-    assert response.status_code == 429
+    assert (await forgot(api)).status_code == 429

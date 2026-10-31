@@ -5,12 +5,12 @@ import type { Dictionary } from "@/i18n";
 import { useAuth, type Failure } from "./AuthProvider";
 
 export type Mode = "login" | "signup";
-type Step = Mode | "forgot" | "reset";
+type Step = Mode | "forgot" | "sent";
 /** Stands in for the password of a remembered account; the field shows it as dots. */
 const SAVED = "remembered-account";
 
-/** Log-in form with links to sign up and to a forgotten password (a code by email,
- * then the code and a new password); used in the header and the game. After a
+/** Log-in form with links to sign up and to a forgotten password (nickname and email
+ * go to Hootan, who emails a new one by hand); used in the header and the game. After a
  * log-out with "remember me", it comes filled in and one click logs back in. */
 export function AuthForm({
   t,
@@ -23,9 +23,8 @@ export function AuthForm({
   start?: Mode;
   onDone?: () => void;
 }) {
-  const { logIn, signUp, forgot, reset, remembered, logInRemembered, forget } = useAuth();
+  const { logIn, signUp, forgot, remembered, logInRemembered, forget } = useAuth();
   const [step, setStep] = useState<Step>(start);
-  const [email, setEmail] = useState("");
   const [busy, setBusy] = useState(false);
   const [failure, setFailure] = useState<Failure>(null);
   const [saved, setSaved] = useState<string | null>(null);
@@ -38,7 +37,7 @@ export function AuthForm({
     signup: { 409: t.errTaken, email: t.errEmailTaken, 422: t.errBad, 429: t.errLimit },
     login: { 401: t.errLogin, 422: t.errLogin, 429: t.errLimit },
     forgot: { 422: t.errBad, 429: t.errLimit },
-    reset: { 400: t.errCode, 422: t.errCode, 429: t.errLimit },
+    sent: {},
   };
   const input = "min-h-10 w-full min-w-0 rounded-xl border-[1.5px] border-line bg-input px-3 text-[15px] text-ink placeholder:text-muted";
   // The label sits inside the field as its placeholder, so the form fits in the game box.
@@ -70,14 +69,8 @@ export function AuthForm({
     setBusy(true);
     let out: Failure;
     if (step === "forgot") {
-      const address = value("email")!;
-      out = await forgot(address);
-      if (out === null) {
-        setEmail(address);
-        setStep("reset");
-      }
-    } else if (step === "reset") {
-      out = await reset({ email, code: value("code")!, password: String(form.get("password")), remember: keep });
+      out = await forgot({ nickname: value("nickname")!, email: value("email")! });
+      if (out === null) setStep("sent");
     } else {
       const login = { nickname: value("nickname")!, password: String(form.get("password")), remember: keep };
       if (signup) out = await signUp({ ...login, email: value("email")!, phone: value("phone") });
@@ -89,8 +82,6 @@ export function AuthForm({
     if (out === null && step !== "forgot") onDone?.();
   };
 
-  const password = (label: string, autoComplete: string) =>
-    field("password", label, { type: "password", dir: "auto", required: true, maxLength: 128, autoComplete });
   const button = (text: string) => (
     <button
       type="submit"
@@ -110,28 +101,15 @@ export function AuthForm({
         submit(new FormData(e.currentTarget));
       }}
     >
-      {step === "forgot" || step === "reset" ? (
+      {step === "forgot" || step === "sent" ? (
         <>
           <b className="text-[16px]">{t.forgotTitle}</b>
           <p className="m-0 text-[13px] text-muted">{step === "forgot" ? t.forgotHint : t.sent}</p>
-          {step === "forgot" ? (
+          {step === "forgot" && (
             <>
+              {field("nickname", t.nickname, { dir: "auto", required: true, maxLength: 20, autoComplete: "username" })}
               {field("email", t.email, { type: "email", dir: "ltr", required: true, autoComplete: "email" })}
               {button(t.send)}
-            </>
-          ) : (
-            <>
-              {field("code", t.code, {
-                dir: "ltr",
-                required: true,
-                inputMode: "numeric",
-                pattern: "[0-9]{6}",
-                maxLength: 6,
-                autoComplete: "one-time-code",
-              })}
-              {password(t.newPassword, "new-password")}
-              {remember}
-              {button(t.reset)}
             </>
           )}
         </>
@@ -191,7 +169,7 @@ export function AuthForm({
             {t.haveAccount} {link(t.login, "login")}
           </span>
         )}
-        {(step === "forgot" || step === "reset") && link(t.back, "login")}
+        {(step === "forgot" || step === "sent") && link(t.back, "login")}
       </p>
     </form>
   );

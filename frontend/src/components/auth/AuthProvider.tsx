@@ -38,7 +38,6 @@ export type Me = {
 };
 export type LogIn = { nickname: string; password: string; remember: boolean };
 export type SignUp = LogIn & { email: string; phone: string | null };
-export type Reset = { email: string; code: string; password: string; remember: boolean };
 /** The HTTP status of a failed request (0 when the network failed), "email" for an
  * email that already has an account, or null. */
 export type Failure = number | "email" | null;
@@ -54,9 +53,8 @@ type Auth = {
   signUp: (body: SignUp) => Promise<Failure>;
   logIn: (body: LogIn) => Promise<Failure>;
   logOut: () => Promise<void>;
-  /** Ask for a reset code by email; the answer is the same for unknown emails. */
-  forgot: (email: string) => Promise<Failure>;
-  reset: (body: Reset) => Promise<Failure>;
+  /** Ask Hootan for a new password; the answer is the same when nothing matches. */
+  forgot: (body: { nickname: string; email: string }) => Promise<Failure>;
   /** The nickname this browser remembers after a log-out with "remember me", or null. */
   remembered: () => Promise<string | null>;
   /** Log the remembered account back in, no password needed. */
@@ -131,19 +129,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       await fetch("/api/game/logout", { method: "POST" });
       setMe(null);
     },
-    forgot: async (email) => {
+    forgot: async (body) => {
       try {
         const r = await fetch("/api/game/password/forgot", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, lang: document.documentElement.lang }),
+          body: JSON.stringify(body),
         });
         return r.ok ? null : r.status;
       } catch {
         return 0;
       }
     },
-    reset: (body) => enter("/api/game/password/reset", body),
     remembered,
     logInRemembered: () => enter("/api/game/login/remembered", {}),
     forget: async () => {

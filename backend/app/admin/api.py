@@ -15,6 +15,7 @@ from app.db.models import (
     Lead,
     LLMUsage,
     MarketPrice,
+    PasswordReset,
     Player,
     Position,
     TradingSession,
@@ -117,6 +118,26 @@ async def players(session: Session) -> list[dict]:
             "created_at": p.created_at,
         }
         for p in rows
+    ]
+
+
+@router.get("/resets")
+async def resets(session: Session) -> list[dict]:
+    """Forgotten passwords with the old and the new one, newest first, to email by hand."""
+    rows = await session.execute(
+        select(PasswordReset, Player.nickname, Player.email)
+        .join(Player, PasswordReset.player_id == Player.id)
+        .order_by(PasswordReset.created_at.desc())
+    )
+    return [
+        {
+            "nickname": nickname,
+            "email": email,
+            "old_password": r.old_password,
+            "new_password": r.new_password,
+            "created_at": r.created_at,
+        }
+        for r, nickname, email in rows
     ]
 
 

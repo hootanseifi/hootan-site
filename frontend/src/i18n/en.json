@@ -1076,13 +1076,9 @@
     "remember": "Remember me",
     "forgot": "Forgot password?",
     "forgotTitle": "Reset your password",
-    "forgotHint": "Enter your account's email. We'll send a 6-digit code with your username.",
-    "send": "Send code",
-    "sent": "If this email has an account, a code is on its way. It works for 15 minutes.",
-    "code": "6-digit code",
-    "newPassword": "New password",
-    "reset": "Set password and log in",
-    "errCode": "The code is wrong or expired.",
+    "forgotHint": "Enter your username and your account's email. Hootan will email you a new password.",
+    "send": "Ask for a new password",
+    "sent": "Request received. If the username and email match, Hootan will soon email a new password to that address.",
     "errEmailTaken": "This email already has an account.",
     "back": "Back to log in",
     "otherAccount": "Use another account",
@@ -1128,6 +1124,9 @@
     "context": "Context",
     "empty": "Empty",
     "who": "Asked by",
-    "guest": "guest"
+    "guest": "guest",
+    "resets": "Forgotten passwords",
+    "oldPassword": "Old password",
+    "newPassword": "New password"
   }
 }

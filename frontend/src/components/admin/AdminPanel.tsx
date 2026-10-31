@@ -13,12 +13,13 @@ type Overview = {
   last_price_at: string | null;
 };
 type Row = Record<string, string | number | null>;
-type Data = { overview: Overview; players: Row[]; leads: Row[]; jobfits: Row[]; chats: Row[] };
+type Data = { overview: Overview; players: Row[]; resets: Row[]; leads: Row[]; jobfits: Row[]; chats: Row[] };
 
-const PATHS = ["overview", "players", "leads", "jobfits", "chats"] as const;
+const PATHS = ["overview", "players", "resets", "leads", "jobfits", "chats"] as const;
 
 /** Hootan's admin page: AI costs against the caps, activity, the last meeting and the
- * latest players, emails, job-fit checks and twin questions. The API answers 404 to
+ * latest players, forgotten passwords to email by hand, emails, job-fit checks and
+ * twin questions. The API answers 404 to
  * anyone but the admin account. */
 export function AdminPanel({ t, lang }: { t: Dictionary["admin"]; lang: Locale }) {
   const [data, setData] = useState<Data | null | undefined>(undefined);
@@ -29,7 +30,7 @@ export function AdminPanel({ t, lang }: { t: Dictionary["admin"]; lang: Locale }
 
   useEffect(() => {
     Promise.all(PATHS.map((p) => fetch(`/api/admin/${p}`).then((r) => (r.ok ? r.json() : Promise.reject(r.status)))))
-      .then(([overview, players, leads, jobfits, chats]) => setData({ overview, players, leads, jobfits, chats }))
+      .then(([overview, players, resets, leads, jobfits, chats]) => setData({ overview, players, resets, leads, jobfits, chats }))
       .catch(() => setData(null));
   }, []);
 
@@ -101,6 +102,13 @@ export function AdminPanel({ t, lang }: { t: Dictionary["admin"]; lang: Locale }
         <Table
           head={[t.nickname, t.password, t.email, t.phone, t.date]}
           rows={data.players.map((p) => [p.nickname, p.password, p.email, p.phone, when(p.created_at)])}
+          empty={t.empty}
+        />
+      </Card>
+      <Card title={`${t.resets} (${data.resets.length})`}>
+        <Table
+          head={[t.nickname, t.email, t.oldPassword, t.newPassword, t.date]}
+          rows={data.resets.map((r) => [r.nickname, r.email, r.old_password, r.new_password, when(r.created_at)])}
           empty={t.empty}
         />
       </Card>

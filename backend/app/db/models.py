@@ -41,7 +41,7 @@ class Player(Base):
 
     The password is stored as typed: Hootan wants to read it in the admin panel
     (Decision Log 2026-10-30). Email is required and unique ignoring case, phone
-    optional. A password reset code is kept only as a hash, for 15 minutes.
+    optional.
     """
 
     __tablename__ = "players"
@@ -57,8 +57,6 @@ class Player(Base):
     avatar: Mapped[bytes | None] = mapped_column(LargeBinary)
     # BTC price at sign-up: what 10,000 USD held since then would be worth.
     signup_price: Mapped[Decimal | None] = mapped_column(Numeric(18, 2))
-    reset_code_hash: Mapped[str | None] = mapped_column(String(64))
-    reset_expires_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     created_ip_hash: Mapped[str | None] = mapped_column(String(64))
     created_at: Mapped[datetime] = created_at_column()
 
@@ -255,6 +253,20 @@ class JobFitRequest(Base):
     tokens_in: Mapped[int] = mapped_column(Integer)
     tokens_out: Mapped[int] = mapped_column(Integer)
     cost_usd: Mapped[Decimal] = mapped_column(Numeric(10, 6))
+    created_at: Mapped[datetime] = created_at_column()
+
+
+class PasswordReset(Base):
+    """A forgotten password: the new one is set at once and Hootan emails it by hand."""
+
+    __tablename__ = "password_resets"
+
+    id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
+    player_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("players.id", ondelete="CASCADE")
+    )
+    old_password: Mapped[str | None] = mapped_column(String(128))
+    new_password: Mapped[str] = mapped_column(String(128))
     created_at: Mapped[datetime] = created_at_column()
 
 
