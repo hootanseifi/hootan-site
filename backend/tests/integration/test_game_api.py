@@ -259,7 +259,7 @@ async def test_logging_in_without_remember_forgets_the_account(api):
     await api.post("/api/game/login", json=body)
     await api.post("/api/game/logout")
 
-    assert (await api.get("/api/game/remembered")).status_code == 404
+    assert (await api.get("/api/game/remembered")).json() == {"nickname": None}
     assert (await api.post("/api/game/login/remembered")).status_code == 404
 
 
@@ -272,7 +272,7 @@ async def test_forgetting_stops_the_offer(api):
     await api.post("/api/game/logout")
 
     assert (await api.delete("/api/game/remembered")).status_code == 204
-    assert (await api.get("/api/game/remembered")).status_code == 404
+    assert (await api.get("/api/game/remembered")).json() == {"nickname": None}
 
 
 async def test_a_forged_remember_cookie_is_ignored(api, session):
@@ -282,6 +282,7 @@ async def test_a_forged_remember_cookie_is_ignored(api, session):
     api.cookies.set("remembered", f"{player.id}.forged")
 
     assert (await api.post("/api/game/login/remembered")).status_code == 404
+    assert (await api.get("/api/game/remembered")).json() == {"nickname": None}
 
 
 async def test_nobody_can_sign_up_with_the_admin_nickname(api):

@@ -120,13 +120,19 @@ async def log_out(response: Response) -> None:
     response.delete_cookie(COOKIE_NAME, **FLAGS)
 
 
-async def remembered_player(
+async def remembered_or_none(
     request: Request, session: Annotated[AsyncSession, Depends(get_session)]
-) -> Player:
-    """The player this browser remembers, or 404."""
+) -> Player | None:
+    """The player this browser remembers, or None."""
     value = request.cookies.get(REMEMBER_NAME)
     player_id = unsign(value, get_settings()) if value else None
-    player = await session.get(Player, player_id) if player_id else None
+    return await session.get(Player, player_id) if player_id else None
+
+
+def remembered_player(
+    player: Annotated[Player | None, Depends(remembered_or_none)],
+) -> Player:
+    """The player this browser remembers, or 404."""
     if player is None:
         raise HTTPException(status_code=404, detail="Nothing remembered")
     return player
@@ -134,10 +140,11 @@ async def remembered_player(
 
 @router.get("/remembered")
 async def remembered(
-    player: Annotated[Player, Depends(remembered_player)],
+    player: Annotated[Player | None, Depends(remembered_or_none)],
 ) -> dict:
-    """The remembered nickname, for the log-in form to fill in."""
-    return {"nickname": player.nickname}
+    """The remembered nickname for the log-in form, or null: nothing remembered is
+    the usual case, so it is a 200 and the browser logs no error (like /me)."""
+    return {"nickname": player and player.nickname}
 
 
 @router.post("/login/remembered")
