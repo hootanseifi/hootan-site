@@ -1,5 +1,6 @@
 # Checks every push and pull request: backend lint and tests against a real
-# Postgres, frontend lint, types, tests and build, and a scan for leaked secrets.
+# Postgres, frontend lint, types, tests and build, end-to-end tests in Chrome
+# against the real API, and a scan for leaked secrets.
 name: CI
 
 on:
@@ -30,7 +31,8 @@ jobs:
         working-directory: backend
     steps:
       - uses: actions/checkout@v7
-      - uses: astral-sh/setup-uv@v10
+      # setup-uv publishes no major tags after v7, only full versions.
+      - uses: astral-sh/setup-uv@v10.3.3
         with:
           python-version: "3.12"
           working-directory: backend
@@ -57,6 +59,50 @@ jobs:
       # The build writes next-env.d.ts and the route types that tsc needs.
       - run: npm run build
       - run: npx tsc --noEmit
+
+  e2e:
+    runs-on: ubuntu-latest
+    services:
+      db:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_USER: ci
+          POSTGRES_PASSWORD: ci
+          POSTGRES_DB: hootan_site
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U ci"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgresql+asyncpg://ci:ci@127.0.0.1:5432/hootan_site
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          python-version: "3.12"
+          working-directory: backend
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Start the API on a migrated database
+        working-directory: backend
+        run: |
+          uv sync --frozen
+          uv run alembic upgrade head
+          uv run uvicorn app.main:app --port 8000 > ../api.log 2>&1 &
+          curl --retry 30 --retry-delay 1 --retry-all-errors -sf http://127.0.0.1:8000/api/health
+      - name: Playwright in the runner's Chrome; it starts the dev site itself
+        working-directory: frontend
+        run: |
+          npm ci
+          npx playwright test
+      - if: failure()
+        run: cat api.log
 
   secrets:
     runs-on: ubuntu-latest
