@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 import type { Dictionary, Locale } from "@/i18n";
 import { latinDigits } from "@/lib/digits";
 import { glide } from "@/lib/motion";
+import { firstSentence } from "@/lib/sentence";
 import { NightSky } from "./NightSky";
 import { useMeeting } from "./useMeeting";
 
@@ -19,8 +20,6 @@ const WINDOWS = [
   ["pm", 62.74, 59.09, 13.16, 18.28],
 ] as const;
 
-/** First sentence of a turn, so every line of the meeting fits in the dialog. */
-const firstSentence = (text: string) => text.split(/(?<=[.؛;])\s/)[0];
 const indexOf = (agent: string) =>
   Math.max(
     WINDOWS.findIndex((w) => w[0] === agent),
