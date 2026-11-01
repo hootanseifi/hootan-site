@@ -5,11 +5,11 @@
 <title>Hootan Seifi - AI Engineer - Resume</title>
 <style>
 @import url("https://cdn.jsdelivr.net/npm/@fontsource/inter@5/index.css"); @import url("https://cdn.jsdelivr.net/npm/@fontsource/inter@5/600.css"); @import url("https://cdn.jsdelivr.net/npm/@fontsource/inter@5/700.css"); @import url("https://cdn.jsdelivr.net/npm/@fontsource/vazirmatn@5/index.css"); @import url("https://cdn.jsdelivr.net/npm/@fontsource/vazirmatn@5/700.css"); @import url("https://cdn.jsdelivr.net/npm/@fontsource/vazirmatn@5/800.css");
-@page { size: A4; margin: 11mm 14mm 10mm; }
+@page { size: A4; margin: 10mm 13mm 9mm; }
 :root { --ink:#1F2328; --muted:#59636E; --accent:#1F6F8B; --navy:#16324F; --rule:#C9D3DC; }
 * { box-sizing:border-box; margin:0; padding:0; }
 html { background:#fff; }
-body { font-family:"Inter","Segoe UI",Arial,sans-serif; color:var(--ink); font-size:9.3pt; line-height:1.38; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+body { font-family:"Inter","Segoe UI",Arial,sans-serif; color:var(--ink); font-size:9.2pt; line-height:1.36; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
 @media screen { body { max-width:210mm; margin:16px auto; padding:13mm 15mm; box-shadow:0 0 0 1px #ddd; } }
 a { color:inherit; text-decoration:none; }
 h1 { font-size:21pt; font-weight:700; color:var(--navy); letter-spacing:.2px; line-height:1.1; }
@@ -36,103 +36,116 @@ li::marker { color:var(--accent); }
 .early .role { margin-top:3px; }
 .early .t { font-weight:600; font-size:9.6pt; }
 .line { margin-bottom:2px; }
+
+.skill { margin-bottom:2px; } .skill b { color:var(--navy); }
+.proj .n { font-weight:700; color:var(--navy); margin-top:6px; }
+.proj ul { margin-top:1px; }
+h2 + .role { margin-top:2px; }
+p + p { margin-top:3px; }
 </style>
 </head>
 <body>
-
 <h1>Hootan Seifi</h1>
-<div class="title">AI Engineer &middot; LLM Applications &amp; Agentic AI Systems &middot; Python, FastAPI, LangGraph, RAG</div>
-<div class="contact">
-Tehran, Iran &nbsp;|&nbsp; +98 935 775 9499 &nbsp;|&nbsp; <a href="mailto:hootanseifi90@gmail.com">hootanseifi90@gmail.com</a><br>
-<b>Live portfolio:</b> <a href="https://hootanseifi.pro/en">hootanseifi.pro</a> &nbsp;|&nbsp; <b>GitHub:</b> <a href="https://github.com/hootanseifi">github.com/hootanseifi</a> &nbsp;|&nbsp; <b>LinkedIn:</b> <a href="https://www.linkedin.com/in/hootan-seifi-42b180124">linkedin.com/in/hootan-seifi-42b180124</a><br>
-Open to on-site, remote, hybrid and project-based roles
+<div class="title">AI Engineer | LLM Applications &amp; Agentic AI Systems</div><div class="contact">
+Tehran | Email: <a href="mailto:hootanseifi90@gmail.com">hootanseifi90@gmail.com</a> | Phone: +98 935 775 9499<br>
+LinkedIn: <a href="https://www.linkedin.com/in/hootan-seifi-42b180124">linkedin.com/in/hootan-seifi-42b180124</a> | GitHub: <a href="https://github.com/hootanseifi">github.com/hootanseifi</a><br>
+Portfolio: <a href="https://hootanseifi.pro">hootanseifi.pro</a><br>
 </div>
-
-<h2>Summary</h2>
-<p>AI Engineer specializing in the design, development, evaluation and deployment of LLM-powered systems, including RAG pipelines and AI agents. I have built and deployed LangGraph agent systems, hybrid retrieval, LLM evaluation suites, guardrails and CI/CD infrastructure. My live portfolio, <b>hootanseifi.pro</b>, runs a document-grounded RAG question-answering system and a seven-agent LangGraph system that simulates Bitcoin trading on live market prices, under hard AI budget caps. M.Sc. in Electrical Engineering (Artificial Intelligence), with earlier experience in R&amp;D, application review and financial-market analysis.</p>
-
-<h2>Technical Skills</h2>
-<div class="skills">
-<div><b>LLM &amp; Agents:</b> LangGraph, LangChain, OpenAI Agents SDK, CrewAI, MCP, tool calling, structured outputs, prompt engineering, LLM evaluation, guardrails, QLoRA / PEFT (Hugging Face TRL)</div>
-<div><b>RAG &amp; Retrieval:</b> PostgreSQL + pgvector, hybrid search (vector + BM25, reciprocal rank fusion), embeddings, chunking, reranking, Chroma, Recall@k / MRR</div>
-<div><b>Backend &amp; Deployment:</b> Python, FastAPI, SQLAlchemy, Alembic, REST, Server-Sent Events, Docker Compose, Caddy, Linux, GitHub Actions CI/CD, pytest, Playwright</div>
-<div><b>Machine Learning:</b> PyTorch, scikit-learn, XGBoost, Pandas, SQL; frontend with Next.js and TypeScript</div>
-<div><b>Familiar with:</b> AWS (Bedrock, SageMaker, Lambda), Terraform, Modal, Vercel, Spark, Kafka, Airflow</div>
+<h2>PROFESSIONAL SUMMARY</h2>
+<p>AI Engineer focused on designing, developing, evaluating, and deploying LLM-powered applications, Retrieval-Augmented Generation (RAG) systems, and AI agents. Hands-on experience building agentic workflows with LangGraph, implementing hybrid information retrieval, evaluating LLM outputs, and developing security and reliability mechanisms for AI applications.</p>
+<p>Built practical projects including an enterprise AI agent platform, a bilingual RAG system, and a multi-agent Bitcoin trading simulator. Holds an M.Sc. in Artificial Intelligence, with previous experience in R&amp;D, software application analysis, and financial-market analysis.</p>
+<h2>TECHNICAL SKILLS</h2>
+<div class="skill"><b>LLM &amp; Agent Engineering:</b> Python, LangGraph, LangChain, OpenAI Agents SDK, CrewAI, MCP, Tool Calling, Prompt Engineering, Structured Outputs, LLM Evaluation, Guardrails</div>
+<div class="skill"><b>RAG &amp; Information Retrieval:</b> Embeddings, Chunking, pgvector, PostgreSQL, Chroma, Hybrid Search, BM25, Reranking, RRF, Recall@k, MRR</div>
+<div class="skill"><b>Backend &amp; Testing:</b> FastAPI, SQLAlchemy, Alembic, REST APIs, SSE, pytest, Playwright</div>
+<div class="skill"><b>Machine Learning &amp; Data:</b> PyTorch, scikit-learn, XGBoost, Pandas, SQL, QLoRA, PEFT</div>
+<div class="skill"><b>Infrastructure &amp; Deployment:</b> Docker, Docker Compose, Linux, Caddy, Git, GitHub Actions, CI/CD</div>
+<div class="skill"><b>Frontend:</b> Next.js, TypeScript</div>
+<div class="skill"><b>Familiar with:</b> AWS Bedrock, SageMaker, Lambda, Terraform, Modal, Vercel, Spark, Kafka, Airflow</div>
+<h2>SELECTED PROJECTS</h2>
+<div class="proj"><div class="n">hootanseifi.pro | AI Engineering Portfolio</div>
+<ul>
+<li>Built a bilingual RAG system that retrieves relevant information and generates source-grounded answers.</li>
+<li>Implemented hybrid retrieval by combining BM25 and pgvector, with Reciprocal Rank Fusion (RRF).</li>
+<li>Evaluated 72 scenarios covering citation quality, grounding, refusal behavior, and prompt-injection resistance; passed all 72 scenarios.</li>
+<li>Developed a seven-agent Bitcoin trading simulator using LangGraph and live market prices.</li>
+<li>Implemented independent risk-management rules for the AI agent, including a maximum 5x leverage, 20% margin requirement, and 1–5% stop-loss range. Users can select their own trading settings, while the AI agent continues to enforce its independent risk constraints.</li>
+<li>Completed 20 simulation sessions without violations of the AI agent's defined risk rules.</li>
+<li>Built a job-fit scoring system with programmatic score-range enforcement.</li>
+<li>Implemented daily and monthly AI usage budgets.</li>
+<li>Deployed a five-service architecture using Next.js, FastAPI, a worker, PostgreSQL, and Caddy on a VPS.</li>
+<li>Set up GitHub Actions CI/CD, automated tests, secret scanning, and a tested rollback mechanism.</li>
+</ul>
 </div>
-
-<h2>AI Engineering Experience</h2>
-<div class="role"><span class="t">AI Engineer (Independent Projects) &mdash; <span class="org">Self-employed</span></span><span class="d">Aug 2026 &ndash; Present &middot; Tehran</span></div>
-<p class="lead">Design, build, test and deploy LLM and agentic applications end to end. All code is public on GitHub.</p>
-
-<div class="proj">
-  <div class="h"><span class="n">hootanseifi.pro &mdash; Live AI portfolio: RAG Q&amp;A system, job-fit scoring, AI trading simulation</span><span class="l">hootanseifi.pro</span></div>
-  <ul>
-    <li>Built a bilingual (English/Persian) RAG question-answering system grounded only in my own documents, with source citations. After evaluating weak Persian retrieval, implemented hybrid search (BM25 + pgvector, reciprocal rank fusion). Scored <b>72/72</b> on an internal evaluation set that includes refusal and prompt-injection cases.</li>
-    <li>Designed a seven-agent LangGraph system that simulates Bitcoin trading using live market prices. Risk rules (max 5x leverage, max 20% margin, 1&ndash;5% stop loss) are enforced in Python, not in the prompt: <b>20/20</b> evaluated meetings with zero rule violations.</li>
-    <li>Built a job-fit scoring system that sets the allowable score range programmatically from must-have skill coverage, preventing overly optimistic model assessments; temperature set to 0 for repeatable outputs.</li>
-    <li>Controlled AI inference cost with hard daily and monthly budget caps checked before every model call, and a run-once-per-day design: the first visitor triggers the trading meeting and everyone else watches the recording.</li>
-    <li>Deployed 5 containerized services (Next.js, FastAPI, worker, PostgreSQL, Caddy) on a hardened VPS with nightly backups. The GitHub Actions pipeline runs linters, <b>225 backend, 28 component and 15 end-to-end tests</b> and a secret scan, and rolls back a failed deploy automatically, verified with a deliberately broken release.</li>
-  </ul>
-  <div class="stack">FastAPI &middot; LangGraph &middot; PostgreSQL + pgvector &middot; SQLAlchemy &middot; Next.js / TypeScript &middot; Docker &middot; Caddy &middot; GitHub Actions</div>
+<div class="proj"><div class="n">Astra Enterprise AI Agent Platform</div>
+<ul>
+<li>Designed and developed an enterprise AI agent platform using FastAPI and LangGraph.</li>
+<li>Implemented dynamic routing across direct responses, RAG retrieval, tool calls, and combined RAG-plus-tool workflows.</li>
+<li>Built multi-step agent workflows with recovery nodes, PostgreSQL checkpointing, and human-in-the-loop approval.</li>
+<li>Developed a PostgreSQL/pgvector-based RAG pipeline with hybrid retrieval, HNSW indexing, reranking, and permission-aware retrieval.</li>
+<li>Improved Recall@1 from 0.67 to 1.00 on the project's evaluation dataset.</li>
+<li>Implemented RBAC/JWT authorization, tool-input validation, and Persian/English prompt-injection detection.</li>
+<li>Added secret redaction, rate limiting, Prometheus monitoring, and token/cost tracking.</li>
+<li>Developed an MCP server to expose tools through a standardized interface.</li>
+<li>Achieved 407 automated tests and 93% code coverage, with CI quality gates.</li>
+</ul>
 </div>
-
-<div class="proj">
-  <div class="h"><span class="n">Astra &mdash; Enterprise AI agent platform</span><span class="l">github.com/hootanseifi/astra-ai-platform</span></div>
-  <ul>
-    <li>Designed a LangGraph agent that dynamically routes each request to RAG, tool calls, both, or a direct answer, with multi-step planning, a recovery node, a PostgreSQL checkpointer and human-in-the-loop approval for sensitive tools.</li>
-    <li>Implemented agentic RAG on pgvector (HNSW index, reranking, permission-aware retrieval); reranking raised Recall@1 from <b>0.67 to 1.00</b> on the evaluation set.</li>
-    <li>Built the security layer (RBAC tool executor with allow-list and schema validation, JWT auth, prompt-injection detection in English and Persian) and operations features (secret redaction, rate limiting, Prometheus metrics, token and cost tracking, an MCP server).</li>
-    <li><b>407 automated tests, 93% coverage</b>, and a CI quality gate on Recall@k, MRR, route accuracy and groundedness.</li>
-  </ul>
+<div class="proj"><div class="n">Price Estimate | Product Price Prediction</div>
+<ul>
+<li>Built a product price estimation system using a dataset of approximately 800,000 Amazon products.</li>
+<li>Evaluated models ranging from baseline approaches to deep residual neural networks.</li>
+<li>Fine-tuned Llama 3.2 3B using QLoRA, Hugging Face TRL, and Modal, and integrated the fine-tuned model into the system.</li>
+<li>Implemented a Chroma-based RAG pipeline to incorporate product information into price estimation.</li>
+<li>Used Non-Negative Least Squares (NNLS) for ensemble weight optimization and reweighting when model outputs were unavailable.</li>
+<li>Evaluated model performance using MAE, RMSLE, R², and Hit Rate, including 95% confidence intervals for MAE.</li>
+<li>Developed deal-alert functionality and exposed the application through FastAPI and Gradio.</li>
+<li>Added more than 60 automated tests.</li>
+</ul>
 </div>
-
-<div class="proj">
-  <div class="h"><span class="n">Price Estimate &mdash; ML price prediction and deal-finding agents</span><span class="l">github.com/hootanseifi/price-estimate</span></div>
-  <ul>
-    <li>Re-implemented the capstone of Ed Donner's LLM Engineering course as a tested Python package, using an Amazon dataset of about 800,000 products: models from baselines to a deep residual network, a QLoRA fine-tuning pipeline for Llama 3.2 3B (Hugging Face TRL, served on Modal) and an LLM-powered RAG pipeline using Chroma.</li>
-    <li>Replaced hand-picked ensemble weights with weights fitted by non-negative least squares, with automatic re-weighting when a model is unavailable; fixed parser, upload and checkpoint bugs from the original notebooks.</li>
-    <li>Benchmarked all models on the same test set, reporting MAE with 95% confidence intervals, RMSLE, R&sup2; and hit rate. Agents monitor deal RSS feeds and send push notifications; served through a FastAPI <i>/predict</i> endpoint and a Gradio UI, with 60+ offline tests in CI.</li>
-  </ul>
+<div class="proj"><div class="n">AI Medical Notes | Medical Note Assistant</div>
+<ul>
+<li>Built an application that transforms clinical visit notes into structured summaries, next steps, and draft patient emails.</li>
+<li>Implemented streaming responses using Server-Sent Events (SSE).</li>
+<li>Developed the backend with FastAPI and the frontend with Next.js.</li>
+<li>Integrated the OpenAI API and Clerk for AI capabilities and authentication.</li>
+<li>Deployed the application on Vercel.</li>
+</ul>
 </div>
-
-<div class="proj">
-  <div class="h"><span class="n">AI Medical Notes &mdash; SaaS for doctors</span><span class="l">github.com/hootanseifi/ai-medical-notes-saas</span></div>
-  <ul>
-    <li>Turns consultation notes into a structured visit summary, suggested next steps and a draft patient email, streamed to the UI in real time with Server-Sent Events. Next.js, FastAPI, OpenAI, Clerk authentication and subscriptions, deployed on Vercel.</li>
-  </ul>
+<div class="proj"><div class="n">Behengam | Integrated Healthcare Platform</div>
+<ul>
+<li>Contributing to the design and preparation of a healthcare platform intended to connect 12 stakeholder groups.</li>
+<li>Planning a shared health-record architecture and data exchange based on HL7 v2, FHIR, LOINC, and UCUM standards.</li>
+<li>Selected Django REST Framework and Kafka as part of the planned technical architecture.</li>
+<li>Defining AI-assisted alerting and decision-support use cases while keeping healthcare professionals responsible for final decisions.</li>
+<li>Currently in the preparation and design phase.</li>
+</ul>
 </div>
-
-<div class="proj">
-  <div class="h"><span class="n">Behengam &mdash; Integrated health platform (founder, design phase)</span><span class="l">Interactive investor demo v2</span></div>
-  <ul>
-    <li>Designed to connect 12 stakeholder groups across Iran's healthcare system through a unified patient record. Built the interactive investor demo and the product roadmap: HL7 v2 / FHIR ingestion through Kafka, LOINC / UCUM normalization, Django REST with role-based access, and an AI alert layer whose outputs are shown to doctors as suggestions, never decisions.</li>
-  </ul>
-</div>
-
-<h2>Earlier Experience</h2>
-<div class="early">
-<div class="role"><span class="t">Digital Marketing &amp; Content Manager &mdash; <span class="org">Eghtesad Gostar Behsaman</span></span><span class="d">May 2025 &ndash; Apr 2026</span></div>
-<ul><li>Planned and managed digital marketing activities, content production and optimization of communication channels.</li></ul>
-<div class="role"><span class="t">Senior Power Plant Specialist &mdash; <span class="org">Taban Energy Power Plant (Pasargad Bank)</span></span><span class="d">Mar 2025 &ndash; May 2025</span></div>
-<ul><li>Technical responsibilities and oversight of the performance of plant equipment and operational processes.</li></ul>
-<div class="role"><span class="t">Fundamental Analyst &amp; Trader, Financial Markets &mdash; <span class="org">Novin Eghtesad Technologies</span></span><span class="d">Sep 2022 &ndash; Feb 2025</span></div>
-<ul><li>Analyzed financial and crypto markets, evaluated blockchain projects for analytical reports, and developed a Python trading bot on market data.</li></ul>
-<div class="role"><span class="t">Technical Specialist, Application Review &amp; Development &mdash; <span class="org">Cafe Bazaar</span></span><span class="d">Jan 2022 &ndash; May 2022</span></div>
-<ul><li>Technical review of applications, evaluation of their performance quality, and collaboration in the review and publishing process.</li></ul>
-<div class="role"><span class="t">R&amp;D Specialist, R&amp;D Department &mdash; <span class="org">MAPNA Electric &amp; Control Engineering (MECO)</span></span><span class="d">Apr 2020 &ndash; Mar 2021</span></div>
-<ul><li>Contributed to research and development activities and technical review of projects in the company's field.</li></ul>
-</div>
-
-<h2>Education</h2>
-<div class="role" style="margin-top:2px"><span><b>M.Sc. Electrical Engineering, Artificial Intelligence</b> &mdash; Amirkabir University (Tafresh Branch)</span><span class="d">2016 &ndash; 2018</span></div>
-<div class="role" style="margin-top:2px"><span><b>B.Sc. Electrical Engineering, Electronics</b> &mdash; Amirkabir University (Tafresh Branch)</span><span class="d">2011 &ndash; 2015</span></div>
-<div class="line" style="margin-top:3px"><b>Academic ML projects:</b> fraud detection on Ethereum transactions with imbalanced data (XGBoost); tweet sentiment vs. Nvidia stock price (NLP, time series); traffic-sign classification with CNNs (GTSRB).</div>
-
-<h2>Certifications &amp; Languages</h2>
-<div class="line">LLM Engineering: Master AI, Large Language Models &amp; Agents &mdash; Ed Donner, Udemy</div>
-<div class="line">Machine Learning Specialization &mdash; Andrew Ng, DeepLearning.AI &amp; Stanford</div>
-<div class="line">Financial Trading in Python &mdash; DataCamp, 2025</div>
-<div class="line" style="margin-top:3px"><b>Languages:</b> Persian (native), English (professional working proficiency)</div>
-
+<h2>PROFESSIONAL EXPERIENCE</h2>
+<div class="role"><span class="t"><b>Independent AI Engineer</b></span><span class="d">Aug 2026 – Present</span></div>
+<div class="role"><span class="t"><b>Digital Marketing &amp; Content Manager</b> &mdash; <span class="org">Eghtesad Gostar Behsaman</span></span><span class="d">May 2025 – Apr 2026</span></div>
+<div class="role"><span class="t"><b>Senior Power Plant Specialist</b> &mdash; <span class="org">Taban Energy Power Plant</span></span><span class="d">Mar 2025 – May 2025</span></div>
+<div class="role"><span class="t"><b>Fundamental Analyst &amp; Trader</b> &mdash; <span class="org">Novin Eghtesad Technologies</span></span><span class="d">Sep 2022 – Feb 2025</span></div>
+<div class="role"><span class="t"><b>Technical Specialist</b> &mdash; <span class="org">Cafe Bazaar</span></span><span class="d">Jan 2022 – May 2022</span></div>
+<div class="role"><span class="t"><b>R&amp;D Specialist</b> &mdash; <span class="org">MECO / MAPNA</span></span><span class="d">Apr 2020 – Mar 2021</span></div>
+<h2>EDUCATION</h2>
+<div class="role"><span class="t"><b>M.Sc. in Electrical Engineering – Artificial Intelligence</b> &mdash; <span class="org">Amirkabir University of Technology, Tafresh Branch</span></span><span class="d">2016–2018</span></div>
+<div class="role"><span class="t"><b>B.Sc. in Electrical Engineering – Electronics</b></span><span class="d">2011–2015</span></div>
+<h2>ACADEMIC PROJECTS</h2>
+<ul>
+<li>Ethereum transaction fraud detection using XGBoost.</li>
+<li>Sentiment analysis of tweets and its relationship with Nvidia stock prices using NLP and time-series methods.</li>
+<li>Traffic sign classification using CNNs and the GTSRB dataset.</li>
+</ul>
+<h2>CERTIFICATIONS</h2>
+<ul>
+<li>LLM Engineering — Ed Donner</li>
+<li>Machine Learning Specialization — Andrew Ng</li>
+<li>Financial Trading in Python — DataCamp</li>
+</ul>
+<h2>LANGUAGES</h2>
+<ul>
+<li>Persian: Native</li>
+<li>English: Professional Working Proficiency</li>
+</ul>
 </body>
 </html>
