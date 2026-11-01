@@ -105,4 +105,4 @@ ops/        backup and deploy scripts
 .github/    CI and deploy workflows
 ```
 
-Built by Hootan Seifi · [GitHub](https://github.com/hnjgp) · hootanseifi90@gmail.com
+Built by Hootan Seifi · [GitHub](https://github.com/hootanseifi) · hootanseifi90@gmail.com

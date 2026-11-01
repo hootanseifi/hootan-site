@@ -16,14 +16,14 @@ const FLOATS = ["float-a", "float-b", "float-c"];
 type Id = ProjectId;
 type T = Dictionary["projects"];
 
-const PROFILE = "https://github.com/hnjgp";
+const PROFILE = "https://github.com/hootanseifi";
 /** Behengam has no public repository yet. */
 const REPOS: Record<Id, string | null> = {
-  astra: "https://github.com/hnjgp/astra-ai-platform",
-  notes: "https://github.com/hnjgp/ai-medical-notes-saas",
-  price: "https://github.com/hnjgp/price-estimate",
+  astra: "https://github.com/hootanseifi/astra-ai-platform",
+  notes: "https://github.com/hootanseifi/ai-medical-notes-saas",
+  price: "https://github.com/hootanseifi/price-estimate",
   behengam: null,
-  site: "https://github.com/hnjgp/hootan-site",
+  site: "https://github.com/hootanseifi/hootan-site",
 };
 
 /** Line icons: an agent graph, a note, a price tag, a pulse line and a browser window. */

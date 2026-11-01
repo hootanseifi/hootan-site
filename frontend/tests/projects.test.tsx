@@ -24,7 +24,7 @@ test("a card opens its project in the large box and the cross brings the cards b
   ).toBeTruthy();
   expect(screen.getByText(t.items.astra.lead)).toBeTruthy();
   expect(screen.getByText(t.github).closest("a")!.href).toBe(
-    "https://github.com/hnjgp/astra-ai-platform",
+    "https://github.com/hootanseifi/astra-ai-platform",
   );
 
   fireEvent.click(screen.getByLabelText(t.close));
@@ -42,7 +42,7 @@ test("Price Estimate opens with its diagrams and links to its repository", async
     screen.getByRole("img", { name: t.items.price.d.ladder }),
   ).toBeTruthy();
   expect(screen.getByText(t.github).closest("a")!.href).toBe(
-    "https://github.com/hnjgp/price-estimate",
+    "https://github.com/hootanseifi/price-estimate",
   );
 });
 
@@ -62,7 +62,7 @@ test("a project without public code links to the GitHub profile and says so", ()
 
   expect(screen.getByText(t.private)).toBeTruthy();
   expect(screen.getByText(t.profile).closest("a")!.href).toBe(
-    "https://github.com/hnjgp",
+    "https://github.com/hootanseifi",
   );
 });
 
