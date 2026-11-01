@@ -8,7 +8,7 @@
 @page { size: A4; margin: 10mm 13mm 9mm; }
 :root { --ink:#1F2328; --muted:#59636E; --accent:#1F6F8B; --navy:#16324F; }
 * { box-sizing:border-box; margin:0; padding:0; }
-body { font-family:"Vazirmatn","Inter",Tahoma,sans-serif; color:var(--ink); font-size:9.2pt; line-height:1.5; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+body { font-family:"Vazirmatn","Inter",Tahoma,sans-serif; color:var(--ink); font-size:9.0pt; line-height:1.44; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
 @media screen { body { max-width:210mm; margin:16px auto; padding:13mm 15mm; box-shadow:0 0 0 1px #ddd; } }
 bdi, .en { font-family:"Inter","Segoe UI",sans-serif; }
 a { color:inherit; text-decoration:none; }
@@ -16,10 +16,10 @@ h1 { font-size:21pt; font-weight:800; color:var(--navy); line-height:1.25; }
 .title { font-size:10.8pt; font-weight:700; color:var(--accent); margin-top:2px; }
 .contact { margin-top:5px; font-size:9pt; color:var(--muted); }
 .contact b { color:var(--ink); }
-h2 { font-size:10.8pt; font-weight:800; color:var(--navy); border-bottom:1.3px solid var(--accent); padding-bottom:1px; margin:10px 0 4px; }
+h2 { font-size:10.8pt; font-weight:800; color:var(--navy); border-bottom:1.3px solid var(--accent); padding-bottom:1px; margin:8px 0 3px; }
 .skills div { margin-bottom:1px; }
 .skills b { color:var(--navy); }
-.role { display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin-top:5px; }
+.role { display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin-top:2px; }
 .role .t { font-weight:800; font-size:10pt; }
 .role .d { color:var(--muted); font-size:8.8pt; white-space:nowrap; }
 .org { color:var(--accent); font-weight:700; }
@@ -41,6 +41,7 @@ li::marker { color:var(--accent); }
 .proj ul { margin-top:1px; }
 h2 + .role { margin-top:2px; }
 p + p { margin-top:3px; }
+.jd { color:var(--muted); margin:0 0 2px; }
 </style>
 </head>
 <body>
@@ -59,6 +60,7 @@ p + p { margin-top:3px; }
 <div class="skill"><b>Backend و تست:</b> FastAPI، SQLAlchemy، Alembic، REST API، SSE، pytest، Playwright</div>
 <div class="skill"><b>یادگیری ماشین و داده:</b> PyTorch، scikit-learn، XGBoost، Pandas، SQL، QLoRA، PEFT</div>
 <div class="skill"><b>زیرساخت و استقرار:</b> Docker، Docker Compose، Linux، Caddy، Git، GitHub Actions، CI/CD</div>
+<div class="skill"><b>اتوماسیون و هوش تجاری:</b> طراحی Workflow با n8n، Power BI، SQL</div>
 <div class="skill"><b>Frontend:</b> Next.js، TypeScript</div>
 <div class="skill"><b>آشنایی:</b> AWS Bedrock، SageMaker، Lambda، Terraform، Modal، Vercel، Spark، Kafka، Airflow</div>
 <h2>پروژه‌های منتخب</h2>
@@ -121,11 +123,17 @@ p + p { margin-top:3px; }
 </div>
 <h2>سوابق شغلی</h2>
 <div class="role"><span class="t"><b>مهندس هوش مصنوعی مستقل</b></span><span class="d">مرداد ۱۴۰۵ تا کنون</span></div>
-<div class="role"><span class="t"><b>مدیر بازاریابی دیجیتال و محتوا</b> &mdash; <span class="org">اقتصادگستر بهسامان</span></span><span class="d">اردیبهشت ۱۴۰۴ تا فروردین ۱۴۰۵</span></div>
+<div class="jd">طراحی، توسعه، تست و استقرار کامل اپلیکیشن‌های مبتنی بر LLM و عامل‌های هوشمند. کد همهٔ پروژه‌ها در گیت‌هاب در دسترس است.</div>
+<div class="role"><span class="t"><b>مدیر توسعهٔ محصولات هوش مصنوعی</b> &mdash; <span class="org">اقتصادگستر بهسامان</span></span><span class="d">اردیبهشت ۱۴۰۴ تا فروردین ۱۴۰۵</span></div>
+<div class="jd">مسئول توسعهٔ محصولات مبتنی بر هوش مصنوعی و همچنین بازاریابی و رشد آن‌ها.</div>
 <div class="role"><span class="t"><b>کارشناس ارشد نیروگاه</b> &mdash; <span class="org">نیروگاه برق تابان</span></span><span class="d">اسفند ۱۴۰۳ تا اردیبهشت ۱۴۰۴</span></div>
+<div class="jd">مسئولیت‌های فنی و نظارت بر عملکرد تجهیزات و فرایندهای عملیاتی نیروگاه.</div>
 <div class="role"><span class="t"><b>تحلیلگر بنیادی و معامله‌گر</b> &mdash; <span class="org">فناوری‌های نوین اقتصاد</span></span><span class="d">شهریور ۱۴۰۱ تا بهمن ۱۴۰۳</span></div>
+<div class="jd">تحلیل بازارهای مالی و رمزارز، ارزیابی پروژه‌های بلاکچینی و تهیهٔ گزارش‌های تحلیلی، و توسعهٔ ربات معامله‌گر با Python بر اساس داده‌های بازار.</div>
 <div class="role"><span class="t"><b>کارشناس فنی</b> &mdash; <span class="org">کافه‌بازار</span></span><span class="d">دی ۱۴۰۰ تا اردیبهشت ۱۴۰۱</span></div>
+<div class="jd">بررسی فنی اپلیکیشن‌ها، ارزیابی کیفیت عملکرد و همکاری در فرایند بررسی و انتشار برنامه‌ها.</div>
 <div class="role"><span class="t"><b>کارشناس تحقیق و توسعه</b> &mdash; <span class="org">مکو / مپنا</span></span><span class="d">فروردین ۱۳۹۹ تا اسفند ۱۳۹۹</span></div>
+<div class="jd">مشارکت در فعالیت‌های تحقیق و توسعه و بررسی فنی پروژه‌های مرتبط با حوزهٔ تخصصی شرکت.</div>
 <h2>تحصیلات</h2>
 <div class="role"><span class="t"><b>کارشناسی ارشد مهندسی برق – گرایش هوش مصنوعی</b> &mdash; <span class="org">دانشگاه صنعتی امیرکبیر، واحد تفرش</span></span><span class="d">۱۳۹۵–۱۳۹۷</span></div>
 <div class="role"><span class="t"><b>کارشناسی مهندسی برق – گرایش الکترونیک</b></span><span class="d">۱۳۹۰–۱۳۹۴</span></div>

@@ -9,18 +9,18 @@
 :root { --ink:#1F2328; --muted:#59636E; --accent:#1F6F8B; --navy:#16324F; --rule:#C9D3DC; }
 * { box-sizing:border-box; margin:0; padding:0; }
 html { background:#fff; }
-body { font-family:"Inter","Segoe UI",Arial,sans-serif; color:var(--ink); font-size:9.2pt; line-height:1.36; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+body { font-family:"Inter","Segoe UI",Arial,sans-serif; color:var(--ink); font-size:9.2pt; line-height:1.33; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
 @media screen { body { max-width:210mm; margin:16px auto; padding:13mm 15mm; box-shadow:0 0 0 1px #ddd; } }
 a { color:inherit; text-decoration:none; }
 h1 { font-size:21pt; font-weight:700; color:var(--navy); letter-spacing:.2px; line-height:1.1; }
 .title { font-size:11pt; font-weight:600; color:var(--accent); margin-top:3px; }
 .contact { margin-top:6px; font-size:9pt; color:var(--muted); }
 .contact b { color:var(--ink); font-weight:600; }
-h2 { font-size:10pt; font-weight:700; color:var(--navy); text-transform:uppercase; letter-spacing:1px; border-bottom:1.3px solid var(--accent); padding-bottom:2px; margin:11px 0 5px; }
+h2 { font-size:10pt; font-weight:700; color:var(--navy); text-transform:uppercase; letter-spacing:1px; border-bottom:1.3px solid var(--accent); padding-bottom:2px; margin:8px 0 4px; }
 p { margin:0; }
 .skills div { margin-bottom:2px; }
 .skills b { color:var(--navy); }
-.role { display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin-top:6px; }
+.role { display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin-top:3px; }
 .role .t { font-weight:700; font-size:10.2pt; }
 .role .d { color:var(--muted); font-size:9pt; white-space:nowrap; }
 .org { color:var(--accent); font-weight:600; }
@@ -31,17 +31,18 @@ p { margin:0; }
 .proj .l { color:var(--muted); font-size:8.8pt; white-space:nowrap; }
 .stack { color:var(--muted); font-size:8.8pt; margin-top:1px; }
 ul { margin:2px 0 0 0; padding-left:14px; }
-li { margin-bottom:1.5px; }
+li { margin-bottom:1px; }
 li::marker { color:var(--accent); }
 .early .role { margin-top:3px; }
 .early .t { font-weight:600; font-size:9.6pt; }
 .line { margin-bottom:2px; }
 
 .skill { margin-bottom:2px; } .skill b { color:var(--navy); }
-.proj .n { font-weight:700; color:var(--navy); margin-top:6px; }
+.proj .n { font-weight:700; color:var(--navy); margin-top:4px; }
 .proj ul { margin-top:1px; }
 h2 + .role { margin-top:2px; }
 p + p { margin-top:3px; }
+.jd { color:var(--muted); margin:0 0 2px; }
 </style>
 </head>
 <body>
@@ -60,6 +61,7 @@ Portfolio: <a href="https://hootanseifi.pro">hootanseifi.pro</a><br>
 <div class="skill"><b>Backend &amp; Testing:</b> FastAPI, SQLAlchemy, Alembic, REST APIs, SSE, pytest, Playwright</div>
 <div class="skill"><b>Machine Learning &amp; Data:</b> PyTorch, scikit-learn, XGBoost, Pandas, SQL, QLoRA, PEFT</div>
 <div class="skill"><b>Infrastructure &amp; Deployment:</b> Docker, Docker Compose, Linux, Caddy, Git, GitHub Actions, CI/CD</div>
+<div class="skill"><b>Automation &amp; BI:</b> Workflow design with n8n, Power BI, SQL</div>
 <div class="skill"><b>Frontend:</b> Next.js, TypeScript</div>
 <div class="skill"><b>Familiar with:</b> AWS Bedrock, SageMaker, Lambda, Terraform, Modal, Vercel, Spark, Kafka, Airflow</div>
 <h2>SELECTED PROJECTS</h2>
@@ -122,11 +124,17 @@ Portfolio: <a href="https://hootanseifi.pro">hootanseifi.pro</a><br>
 </div>
 <h2>PROFESSIONAL EXPERIENCE</h2>
 <div class="role"><span class="t"><b>Independent AI Engineer</b></span><span class="d">Aug 2026 – Present</span></div>
-<div class="role"><span class="t"><b>Digital Marketing &amp; Content Manager</b> &mdash; <span class="org">Eghtesad Gostar Behsaman</span></span><span class="d">May 2025 – Apr 2026</span></div>
+<div class="jd">Design, build, test and deploy LLM and agentic applications end to end. All code is public on GitHub.</div>
+<div class="role"><span class="t"><b>AI Product Development Manager</b> &mdash; <span class="org">Eghtesad Gostar Behsaman</span></span><span class="d">May 2025 – Apr 2026</span></div>
+<div class="jd">Responsible for developing AI-based products, as well as their marketing and overall growth.</div>
 <div class="role"><span class="t"><b>Senior Power Plant Specialist</b> &mdash; <span class="org">Taban Energy Power Plant</span></span><span class="d">Mar 2025 – May 2025</span></div>
+<div class="jd">Technical responsibilities and oversight of the performance of plant equipment and operational processes.</div>
 <div class="role"><span class="t"><b>Fundamental Analyst &amp; Trader</b> &mdash; <span class="org">Novin Eghtesad Technologies</span></span><span class="d">Sep 2022 – Feb 2025</span></div>
+<div class="jd">Analyzed financial and crypto markets, evaluated blockchain projects for analytical reports, and developed a Python trading bot on market data.</div>
 <div class="role"><span class="t"><b>Technical Specialist</b> &mdash; <span class="org">Cafe Bazaar</span></span><span class="d">Jan 2022 – May 2022</span></div>
+<div class="jd">Technical review of applications, evaluation of their performance quality, and collaboration in the review and publishing process.</div>
 <div class="role"><span class="t"><b>R&amp;D Specialist</b> &mdash; <span class="org">MECO / MAPNA</span></span><span class="d">Apr 2020 – Mar 2021</span></div>
+<div class="jd">Contributed to research and development activities and technical review of projects in the company's field.</div>
 <h2>EDUCATION</h2>
 <div class="role"><span class="t"><b>M.Sc. in Electrical Engineering – Artificial Intelligence</b> &mdash; <span class="org">Amirkabir University of Technology, Tafresh Branch</span></span><span class="d">2016–2018</span></div>
 <div class="role"><span class="t"><b>B.Sc. in Electrical Engineering – Electronics</b></span><span class="d">2011–2015</span></div>
