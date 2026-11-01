@@ -871,11 +871,11 @@
         "kind": "hootanseifi.pro",
         "status": "You are here",
         "short": "A digital twin, a job fit checker and a team of seven AI trading agents, with budget caps, tests and evaluations, for about $2 to $3 a month.",
-        "key": "217 tests",
+        "key": "225 tests",
         "lead": "This site is a real AI engineering project and a live portfolio. It is bilingual (Persian and English) with light and dark themes. Behind it: a digital twin that answers from my own documents, a job fit checker that scores a job ad honestly, and a team of seven AI agents that trade Bitcoin at real prices with virtual money while visitors try to beat them.",
         "stats": [
           [
-            "217",
+            "225",
             "backend tests"
           ],
           [
@@ -907,7 +907,7 @@
         "sections": [
           {
             "h": "Architecture",
-            "p": "Five services run in Docker: Caddy in front for HTTPS and security headers, the Next.js site, the FastAPI API, a worker for scheduled jobs and the trading meetings, and PostgreSQL with pgvector for both data and vectors. Language models are reached through AvalAI, an OpenAI-compatible provider that can be switched with two settings. The Bitcoin price comes from Iranian exchanges (Nobitex, with Wallex as a fallback), because the server is in Iran.",
+            "p": "Five services run in Docker: Caddy in front for HTTPS and security headers, the Next.js site, the FastAPI API, a worker for scheduled jobs and the trading meetings, and PostgreSQL with pgvector for both data and vectors. Language models are reached through AvalAI, an OpenAI-compatible provider that can be switched with two settings. The Bitcoin price comes from Iranian exchanges (Nobitex, with Wallex as a fallback). Iranian sources were chosen because international price APIs are blocked from Iran, where the site was built.",
             "dia": "arch"
           },
           {
@@ -932,7 +932,11 @@
           },
           {
             "h": "Quality",
-            "p": "217 backend tests run against a real PostgreSQL database with a fake model client. Evaluations with real models check the digital twin (72 of 72 questions, including refusals and prompt injections), the job fit checker (9 of 9 ads) and the trading team (20 of 20 meetings with no broken risk rule)."
+            "p": "225 backend tests run against a real PostgreSQL database with a fake model client, next to 28 component tests and 15 end-to-end browser tests that also check accessibility. Evaluations with real models check the digital twin (72 of 72 questions, including refusals and prompt injections), the job fit checker (9 of 9 ads) and the trading team (20 of 20 meetings with no broken risk rule)."
+          },
+          {
+            "h": "Shipping",
+            "p": "The site runs on one virtual server in Germany, hardened with key-only SSH, a firewall and automatic security updates, and backed up every night. Every push runs the linters, all tests, a production build and a secret scan on GitHub Actions. When they pass on the main branch, the new version is built on the server, the database is migrated and the site is checked. If the check fails within a minute, the previous version is rebuilt automatically. I tested that with a deliberately broken deploy."
           }
         ],
         "d": {

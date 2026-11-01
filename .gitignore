@@ -54,6 +54,7 @@ CLAUDE.md
 CLAUDE.local.md
 PROGRESS.md
 LEARNING_LOG.md
+LAUNCH_TEXTS.md
 .playwright-mcp/
 frontend/e2e/.results/
 frontend/playwright-report/
