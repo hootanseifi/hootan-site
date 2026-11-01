@@ -8,9 +8,22 @@ import "@fontsource-variable/vazirmatn";
 import "../globals.css";
 import { dirOf, hasLocale, locales } from "@/i18n";
 
+const description =
+  "AI Engineer portfolio: interview my digital twin, score a job ad, and try to beat my team of seven AI trading agents.";
+
+/** Title, description and the link preview card (Open Graph) that LinkedIn and messengers show. */
 export const metadata: Metadata = {
+  metadataBase: new URL("https://hootanseifi.pro"),
   title: "Hootan Seifi",
-  description: "AI Engineer portfolio and AI Trading Floor",
+  description,
+  openGraph: {
+    type: "website",
+    siteName: "Hootan Seifi",
+    title: "Hootan Seifi | AI Engineer",
+    description,
+    images: [{ url: "/assets/og.jpg", width: 1200, height: 630, alt: "Hootan Seifi, AI Engineer" }],
+  },
+  twitter: { card: "summary_large_image" },
 };
 
 const themeScript = `(function(){try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}})()`;
